@@ -1,11 +1,14 @@
 from os import system, name
 import random
+import time
 
 board = [
     [1,2,3],
     [4,5,6],
     [7,8,9],
-]
+] 
+
+position = [1,2,3,4,5,6,7,8,9]
 
 def clear():
   if name == 'nt':
@@ -32,12 +35,14 @@ def resetBoard():
 
 def playGame():
   turn = 0
+  played = 0
   pos = 0
   playing = True
   win = False
   x = "X"
   o = "O"
   
+  clear()
   while playing:
     printBoard()
 
@@ -55,33 +60,26 @@ def playGame():
     #   break
     # if turn % 2 == 0:
           
-    ai = random.randint(1,9)
+    ai = random.choice(position)
+    print(f'chose {ai}')
+
     for i in range(len(board)):
       for j in range(len(board)):
-        # print(i,j,board[i][j],ai,ai == board[i][j] )
-        if ai == board[i][j]:
-          choice = 'O'
-          if ai % 2 == 0:
-            choice = 'X'
-          board[i][j] = choice
-
-    print('ai')
-    #   if ai == board[i][j]:
-    #     board[i][j] = x
-    #     print('h')
-    #     pos += 1
-    # elif turn % 2 != 0:
-    #   play = int(input('Enter number: '))
-    #   if play == board[i][j]:
-    #     board[i][j] = o
-        
-    #     pos += 1
-    turn += 1
-    if turn > 5:
+        if turn % 2 == 0:
+          if ai == board[i][j]:
+            print(f'turn {turn}')
+            position.remove(ai)
+            board[i][j] = x
+            turn += 1
+            time.sleep(2)
+        else:
+          turn += 1
+    print('\n')
+ 
+    played += 1
+    if played > 5:
       break
-  # clear()
-  # resetBoard()
-  # playAgain()
+  print(position)
 
 def checkWin():
   row = 0
