@@ -67,13 +67,15 @@ def playGame():
             position.remove(ai)
             board[i][j] = x
             turn += 1
-            time.sleep(1)
+            pos += 1
+            time.sleep(1.5)
         else:
           if ai == board[i][j]:
             position.remove(ai)
             board[i][j] = o
             turn += 1
-            time.sleep(1)
+            pos += 1
+            time.sleep(1.5)
     clear()
   print(position)
 
