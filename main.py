@@ -42,43 +42,39 @@ def playGame():
   x = "X"
   o = "O"
   
-  clear()
   while playing:
     printBoard()
 
     win = checkWin()
 
-    # if win:
-    #   if turn % 2 == 0:
-    #     print('O has won the match')
-    #     break
-    #   else:
-    #     print('X has won the match')
-    #     break
-    # elif win == False and pos == 9:
-    #   print('The match is a draw')
-    #   break
-    # if turn % 2 == 0:
+    if win:
+      if turn % 2 == 0:
+        print('O has won the match')
+        break
+      else:
+        print('X has won the match')
+        break
+    elif win == False and pos == 9:
+      print('The match is a draw')
+      break
           
     ai = random.choice(position)
-    print(f'chose {ai}')
-
+   
     for i in range(len(board)):
       for j in range(len(board)):
         if turn % 2 == 0:
           if ai == board[i][j]:
-            print(f'turn {turn}')
             position.remove(ai)
             board[i][j] = x
             turn += 1
-            time.sleep(2)
+            time.sleep(1)
         else:
-          turn += 1
-    print('\n')
- 
-    played += 1
-    if played > 5:
-      break
+          if ai == board[i][j]:
+            position.remove(ai)
+            board[i][j] = o
+            turn += 1
+            time.sleep(1)
+    clear()
   print(position)
 
 def checkWin():
