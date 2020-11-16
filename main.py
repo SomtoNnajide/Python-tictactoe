@@ -26,67 +26,59 @@ def printBoard():
       else:
         print(str(board[i][j]))
 
-def resetBoard():
-  x = 1
-  for i in range(len(board)):
-    for j in range (len(board)):
-      board[i][j] = x
-      x += 1
-
 def playGame():
   turn = 0
-  played = 0
   pos = 0
   playing = True
   win = False
   x = "X"
   o = "O"
   
-  clear()
   while playing:
     printBoard()
 
     win = checkWin()
 
-    # if win:
-    #   if turn % 2 == 0:
-    #     print('O has won the match')
-    #     break
-    #   else:
-    #     print('X has won the match')
-    #     break
-    # elif win == False and pos == 9:
-    #   print('The match is a draw')
-    #   break
-    # if turn % 2 == 0:
-          
-    ai = random.choice(position)
-    print(f'chose {ai}')
+    if win:
+      if turn % 2 == 0:
+        print('O has won the match')
+        break
+      else:
+        print('X has won the match')
+        break
+    elif win == False and pos == 9:
+      print('The match is a draw')
+      break
 
-    for i in range(len(board)):
-      for j in range(len(board)):
-        if turn % 2 == 0:
+    if turn % 2 == 0:
+      ai = random.choice(position)
+      for i in range(len(board)):
+        for j in range(len(board)):
           if ai == board[i][j]:
-            print(f'turn {turn}')
             position.remove(ai)
             board[i][j] = x
+            pos += 1
             turn += 1
-            time.sleep(2)
-        else:
-          turn += 1
-    print('\n')
- 
-    played += 1
-    if played > 5:
-      break
+    else:
+      play = int(input('Enter a number '))
+      for i in range(len(board)):
+        for j in range(len(board)):
+          if play == board[i][j]:
+            position.remove(play)
+            board[i][j] = o
+            pos += 1
+            turn += 1
+    
+    time.sleep(0.5)
+    clear()
   print(position)
 
 def checkWin():
   row = 0
   column = 0
 
-  for i in range(len(board)):
-    for j in range(len(board)):
+  for row in range(len(board)):
+    for column in range(len(board)):
       if board[row][column] == board[row][column+1] and board[row][column] == board[row][column+2]:
         return True
 
@@ -111,11 +103,6 @@ def checkWin():
       elif board[row][column+2] == board[row+1][column+1] and board[row][column+2] == board[row+2][column]:
         return True
       return False
-
-def playAgain():
-  input('Enter to play again')
-  clear()
-  playGame()
 
 if __name__ == '__main__':
   playGame()
